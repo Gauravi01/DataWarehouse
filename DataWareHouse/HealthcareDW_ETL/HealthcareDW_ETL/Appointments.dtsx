@@ -1,0 +1,508 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="11/5/2024 1:34:42 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="DESKTOP-3TN8L9T"
+  DTS:CreatorName="DESKTOP-3TN8L9T\94753"
+  DTS:DTSID="{84CE2161-D998-43AD-98F5-359DBBD23D81}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="16.0.5685.0"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="Appointments"
+  DTS:PackageType="5"
+  DTS:VersionBuild="4"
+  DTS:VersionGUID="{6D036FD7-897C-4F2F-A094-74AF851943A7}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[DESKTOP-3TN8L9T.HealthcareDB]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{8D97AFC5-E7DC-4173-BBBE-7A07FB2ED6B6}"
+      DTS:ObjectName="DESKTOP-3TN8L9T.HealthcareDB">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=DESKTOP-3TN8L9T;Initial Catalog=HealthcareDB;Provider=SQLNCLI11.1;Integrated Security=SSPI;Application Name=SSIS-Appointments-{8D97AFC5-E7DC-4173-BBBE-7A07FB2ED6B6}DESKTOP-3TN8L9T.HealthcareDB;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[DESKTOP-3TN8L9T.HealthcareDW]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{94EA08CD-A5C2-4F76-B1A9-D3A07B86791C}"
+      DTS:ObjectName="DESKTOP-3TN8L9T.HealthcareDW">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=DESKTOP-3TN8L9T;Initial Catalog=HealthcareDW;Provider=SQLNCLI11.1;Integrated Security=SSPI;Application Name=SSIS-Appointments-{94EA08CD-A5C2-4F76-B1A9-D3A07B86791C}DESKTOP-3TN8L9T.HealthcareDW;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\ExtractAppointmentDataDB"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{F4008D79-BF5F-4858-BDE8-0DFE26471C8D}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="ExtractAppointmentDataDB"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\ExtractAppointmentDataDB\OLE DB Destination"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="OLE DB Destination"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[FactAppointment]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\ExtractAppointmentDataDB\OLE DB Destination.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DESKTOP-3TN8L9T.HealthcareDW]"
+                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-3TN8L9T.HealthcareDW]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\ExtractAppointmentDataDB\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\ExtractAppointmentDataDB\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[AppointmentID]"
+                      cachedDataType="i4"
+                      cachedName="AppointmentID"
+                      externalMetadataColumnId="Package\ExtractAppointmentDataDB\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[AppointmentID]"
+                      lineageId="Package\ExtractAppointmentDataDB\OLE DB Source.Outputs[OLE DB Source Output].Columns[AppointmentID]" />
+                    <inputColumn
+                      refId="Package\ExtractAppointmentDataDB\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[PatientID]"
+                      cachedDataType="i4"
+                      cachedName="PatientID"
+                      externalMetadataColumnId="Package\ExtractAppointmentDataDB\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[PatientID]"
+                      lineageId="Package\ExtractAppointmentDataDB\OLE DB Source.Outputs[OLE DB Source Output].Columns[PatientID]" />
+                    <inputColumn
+                      refId="Package\ExtractAppointmentDataDB\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[DoctorID]"
+                      cachedDataType="i4"
+                      cachedName="DoctorID"
+                      externalMetadataColumnId="Package\ExtractAppointmentDataDB\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DoctorID]"
+                      lineageId="Package\ExtractAppointmentDataDB\OLE DB Source.Outputs[OLE DB Source Output].Columns[DoctorID]" />
+                    <inputColumn
+                      refId="Package\ExtractAppointmentDataDB\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[AppointmentDate]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="AppointmentDate"
+                      externalMetadataColumnId="Package\ExtractAppointmentDataDB\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[AppointmentDate]"
+                      lineageId="Package\ExtractAppointmentDataDB\OLE DB Source.Outputs[OLE DB Source Output].Columns[AppointmentDate]" />
+                    <inputColumn
+                      refId="Package\ExtractAppointmentDataDB\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Status]"
+                      cachedDataType="wstr"
+                      cachedLength="20"
+                      cachedName="Status"
+                      externalMetadataColumnId="Package\ExtractAppointmentDataDB\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Status]"
+                      lineageId="Package\ExtractAppointmentDataDB\OLE DB Source.Outputs[OLE DB Source Output].Columns[Status]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\ExtractAppointmentDataDB\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[AppointmentID]"
+                      dataType="i4"
+                      name="AppointmentID" />
+                    <externalMetadataColumn
+                      refId="Package\ExtractAppointmentDataDB\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[PatientID]"
+                      dataType="i4"
+                      name="PatientID" />
+                    <externalMetadataColumn
+                      refId="Package\ExtractAppointmentDataDB\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DoctorID]"
+                      dataType="i4"
+                      name="DoctorID" />
+                    <externalMetadataColumn
+                      refId="Package\ExtractAppointmentDataDB\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[AppointmentDate]"
+                      dataType="dbDate"
+                      name="AppointmentDate" />
+                    <externalMetadataColumn
+                      refId="Package\ExtractAppointmentDataDB\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Status]"
+                      dataType="wstr"
+                      length="20"
+                      name="Status" />
+                    <externalMetadataColumn
+                      refId="Package\ExtractAppointmentDataDB\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DateID]"
+                      dataType="i4"
+                      name="DateID" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\ExtractAppointmentDataDB\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\ExtractAppointmentDataDB\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\ExtractAppointmentDataDB\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\ExtractAppointmentDataDB\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\ExtractAppointmentDataDB\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\ExtractAppointmentDataDB\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\ExtractAppointmentDataDB\OLE DB Source"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="OLE DB Source"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[Appointments]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\ExtractAppointmentDataDB\OLE DB Source.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DESKTOP-3TN8L9T.HealthcareDB]"
+                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-3TN8L9T.HealthcareDB]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\ExtractAppointmentDataDB\OLE DB Source.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\ExtractAppointmentDataDB\OLE DB Source.Outputs[OLE DB Source Output].Columns[AppointmentID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\ExtractAppointmentDataDB\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[AppointmentID]"
+                      lineageId="Package\ExtractAppointmentDataDB\OLE DB Source.Outputs[OLE DB Source Output].Columns[AppointmentID]"
+                      name="AppointmentID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\ExtractAppointmentDataDB\OLE DB Source.Outputs[OLE DB Source Output].Columns[PatientID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\ExtractAppointmentDataDB\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[PatientID]"
+                      lineageId="Package\ExtractAppointmentDataDB\OLE DB Source.Outputs[OLE DB Source Output].Columns[PatientID]"
+                      name="PatientID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\ExtractAppointmentDataDB\OLE DB Source.Outputs[OLE DB Source Output].Columns[DoctorID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\ExtractAppointmentDataDB\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[DoctorID]"
+                      lineageId="Package\ExtractAppointmentDataDB\OLE DB Source.Outputs[OLE DB Source Output].Columns[DoctorID]"
+                      name="DoctorID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\ExtractAppointmentDataDB\OLE DB Source.Outputs[OLE DB Source Output].Columns[AppointmentDate]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\ExtractAppointmentDataDB\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[AppointmentDate]"
+                      lineageId="Package\ExtractAppointmentDataDB\OLE DB Source.Outputs[OLE DB Source Output].Columns[AppointmentDate]"
+                      name="AppointmentDate"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\ExtractAppointmentDataDB\OLE DB Source.Outputs[OLE DB Source Output].Columns[Status]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\ExtractAppointmentDataDB\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Status]"
+                      length="20"
+                      lineageId="Package\ExtractAppointmentDataDB\OLE DB Source.Outputs[OLE DB Source Output].Columns[Status]"
+                      name="Status"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\ExtractAppointmentDataDB\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[AppointmentID]"
+                      dataType="i4"
+                      name="AppointmentID" />
+                    <externalMetadataColumn
+                      refId="Package\ExtractAppointmentDataDB\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[PatientID]"
+                      dataType="i4"
+                      name="PatientID" />
+                    <externalMetadataColumn
+                      refId="Package\ExtractAppointmentDataDB\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[DoctorID]"
+                      dataType="i4"
+                      name="DoctorID" />
+                    <externalMetadataColumn
+                      refId="Package\ExtractAppointmentDataDB\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[AppointmentDate]"
+                      dataType="dbTimeStamp"
+                      name="AppointmentDate" />
+                    <externalMetadataColumn
+                      refId="Package\ExtractAppointmentDataDB\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Status]"
+                      dataType="wstr"
+                      length="20"
+                      name="Status" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\ExtractAppointmentDataDB\OLE DB Source.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\ExtractAppointmentDataDB\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[AppointmentID]"
+                      dataType="i4"
+                      lineageId="Package\ExtractAppointmentDataDB\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[AppointmentID]"
+                      name="AppointmentID" />
+                    <outputColumn
+                      refId="Package\ExtractAppointmentDataDB\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[PatientID]"
+                      dataType="i4"
+                      lineageId="Package\ExtractAppointmentDataDB\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[PatientID]"
+                      name="PatientID" />
+                    <outputColumn
+                      refId="Package\ExtractAppointmentDataDB\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[DoctorID]"
+                      dataType="i4"
+                      lineageId="Package\ExtractAppointmentDataDB\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[DoctorID]"
+                      name="DoctorID" />
+                    <outputColumn
+                      refId="Package\ExtractAppointmentDataDB\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[AppointmentDate]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\ExtractAppointmentDataDB\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[AppointmentDate]"
+                      name="AppointmentDate" />
+                    <outputColumn
+                      refId="Package\ExtractAppointmentDataDB\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Status]"
+                      dataType="wstr"
+                      length="20"
+                      lineageId="Package\ExtractAppointmentDataDB\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Status]"
+                      name="Status" />
+                    <outputColumn
+                      refId="Package\ExtractAppointmentDataDB\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\ExtractAppointmentDataDB\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\ExtractAppointmentDataDB\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\ExtractAppointmentDataDB\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\ExtractAppointmentDataDB.Paths[OLE DB Source Output]"
+              endId="Package\ExtractAppointmentDataDB\OLE DB Destination.Inputs[OLE DB Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\ExtractAppointmentDataDB\OLE DB Source.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="206.4,41.6"
+          Id="Package\ExtractAppointmentDataDB"
+          TopLeft="189.285714688654,126.941176359319" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\ExtractAppointmentDataDB">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="149.6,41.6"
+          Id="Package\ExtractAppointmentDataDB\OLE DB Source"
+          TopLeft="217.857143320904,123.882352832589" />
+        <NodeLayout
+          Size="170.4,41.6"
+          Id="Package\ExtractAppointmentDataDB\OLE DB Destination"
+          TopLeft="322.142857828615,324.999999715125" />
+        <EdgeLayout
+          Id="Package\ExtractAppointmentDataDB.Paths[OLE DB Source Output]"
+          TopLeft="292.657143320904,165.482352832589">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="114.685714507711,159.517646882536"
+              Start="0,0"
+              End="114.685714507711,152.017646882536">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,75.7588234412681" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,75.7588234412681"
+                    Point2="0,79.7588234412681"
+                    Point3="4,79.7588234412681" />
+                  <mssgle:LineSegment
+                    End="110.685714507711,79.7588234412681" />
+                  <mssgle:CubicBezierSegment
+                    Point1="110.685714507711,79.7588234412681"
+                    Point2="114.685714507711,79.7588234412681"
+                    Point3="114.685714507711,83.7588234412681" />
+                  <mssgle:LineSegment
+                    End="114.685714507711,152.017646882536" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\ExtractAppointmentDataDB\OLE DB Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\ExtractAppointmentDataDB\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

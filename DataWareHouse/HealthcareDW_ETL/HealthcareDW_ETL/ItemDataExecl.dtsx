@@ -1,0 +1,623 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="11/5/2024 3:53:19 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="DESKTOP-3TN8L9T"
+  DTS:CreatorName="DESKTOP-3TN8L9T\94753"
+  DTS:DTSID="{6C243CBC-F8ED-4D19-87CA-D42C414032F8}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="16.0.5685.0"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="ItemDataExecl"
+  DTS:PackageType="5"
+  DTS:VersionBuild="6"
+  DTS:VersionGUID="{49CAB309-A95A-46F6-A4EE-D83C31B65A2A}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[DESKTOP-3TN8L9T.HealthcareDW]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{584CBCF2-68B6-4148-807A-57231A7D172B}"
+      DTS:ObjectName="DESKTOP-3TN8L9T.HealthcareDW">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=DESKTOP-3TN8L9T;Initial Catalog=HealthcareDW;Provider=SQLNCLI11.1;Integrated Security=SSPI;Application Name=SSIS-ItemDataExecl-{584CBCF2-68B6-4148-807A-57231A7D172B}DESKTOP-3TN8L9T.HealthcareDW;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Excel Connection Manager]"
+      DTS:CreationName="EXCEL"
+      DTS:DTSID="{2B677EDD-FB95-4C9A-822B-751A8FE52A7B}"
+      DTS:ObjectName="Excel Connection Manager">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="0"
+          DTS:ConnectRetryInterval="0"
+          DTS:ConnectionString="Provider=Microsoft.ACE.OLEDB.16.0;Data Source=E:\university\3rd Year\3rd Year_L2\ICT3233 - Data Science and Analytics\ItemData.xlsx;Extended Properties=&quot;Excel 12.0 XML;HDR=YES&quot;;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\ExtractItemDataExcel"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{4B84B915-9B1C-4DEC-9204-72C91BED0519}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="ExtractItemDataExcel"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\ExtractItemDataExcel\Data Conversion"
+              componentClassID="Microsoft.DataConvert"
+              contactInfo="Data Conversion;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Data Conversion"
+              name="Data Conversion"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\ExtractItemDataExcel\Data Conversion.Inputs[Data Conversion Input]"
+                  name="Data Conversion Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\ExtractItemDataExcel\Data Conversion.Inputs[Data Conversion Input].Columns[ItemName]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="ItemName"
+                      lineageId="Package\ExtractItemDataExcel\Excel Source.Outputs[Excel Source Output].Columns[ItemName]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\ExtractItemDataExcel\Data Conversion.Outputs[Data Conversion Output]"
+                  exclusionGroup="1"
+                  name="Data Conversion Output"
+                  synchronousInputId="Package\ExtractItemDataExcel\Data Conversion.Inputs[Data Conversion Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\ExtractItemDataExcel\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of ItemName]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="255"
+                      lineageId="Package\ExtractItemDataExcel\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of ItemName]"
+                      name="Copy of ItemName"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\ExtractItemDataExcel\Excel Source.Outputs[Excel Source Output].Columns[ItemName]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\ExtractItemDataExcel\Data Conversion.Outputs[Data Conversion Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Data Conversion Error Output"
+                  synchronousInputId="Package\ExtractItemDataExcel\Data Conversion.Inputs[Data Conversion Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\ExtractItemDataExcel\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\ExtractItemDataExcel\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\ExtractItemDataExcel\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\ExtractItemDataExcel\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\ExtractItemDataExcel\Excel Source"
+              componentClassID="Microsoft.ExcelSource"
+              contactInfo="Excel Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Excel Source"
+              name="Excel Source"
+              usesDispositions="true"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">Sheet1$</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mapping from parameters in the SQL command to variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\ExtractItemDataExcel\Excel Source.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[Excel Connection Manager]"
+                  connectionManagerRefId="Package.ConnectionManagers[Excel Connection Manager]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\ExtractItemDataExcel\Excel Source.Outputs[Excel Source Output]"
+                  name="Excel Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\ExtractItemDataExcel\Excel Source.Outputs[Excel Source Output].Columns[ItemID]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\ExtractItemDataExcel\Excel Source.Outputs[Excel Source Output].ExternalColumns[ItemID]"
+                      lineageId="Package\ExtractItemDataExcel\Excel Source.Outputs[Excel Source Output].Columns[ItemID]"
+                      name="ItemID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\ExtractItemDataExcel\Excel Source.Outputs[Excel Source Output].Columns[ItemName]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\ExtractItemDataExcel\Excel Source.Outputs[Excel Source Output].ExternalColumns[ItemName]"
+                      length="255"
+                      lineageId="Package\ExtractItemDataExcel\Excel Source.Outputs[Excel Source Output].Columns[ItemName]"
+                      name="ItemName"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\ExtractItemDataExcel\Excel Source.Outputs[Excel Source Output].Columns[QuantityInStock]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\ExtractItemDataExcel\Excel Source.Outputs[Excel Source Output].ExternalColumns[QuantityInStock]"
+                      lineageId="Package\ExtractItemDataExcel\Excel Source.Outputs[Excel Source Output].Columns[QuantityInStock]"
+                      name="QuantityInStock"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\ExtractItemDataExcel\Excel Source.Outputs[Excel Source Output].Columns[ReorderLevel]"
+                      dataType="r8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\ExtractItemDataExcel\Excel Source.Outputs[Excel Source Output].ExternalColumns[ReorderLevel]"
+                      lineageId="Package\ExtractItemDataExcel\Excel Source.Outputs[Excel Source Output].Columns[ReorderLevel]"
+                      name="ReorderLevel"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\ExtractItemDataExcel\Excel Source.Outputs[Excel Source Output].Columns[LastUpdated]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\ExtractItemDataExcel\Excel Source.Outputs[Excel Source Output].ExternalColumns[LastUpdated]"
+                      length="255"
+                      lineageId="Package\ExtractItemDataExcel\Excel Source.Outputs[Excel Source Output].Columns[LastUpdated]"
+                      name="LastUpdated"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\ExtractItemDataExcel\Excel Source.Outputs[Excel Source Output].ExternalColumns[ItemID]"
+                      dataType="r8"
+                      name="ItemID" />
+                    <externalMetadataColumn
+                      refId="Package\ExtractItemDataExcel\Excel Source.Outputs[Excel Source Output].ExternalColumns[ItemName]"
+                      dataType="wstr"
+                      length="255"
+                      name="ItemName" />
+                    <externalMetadataColumn
+                      refId="Package\ExtractItemDataExcel\Excel Source.Outputs[Excel Source Output].ExternalColumns[QuantityInStock]"
+                      dataType="r8"
+                      name="QuantityInStock" />
+                    <externalMetadataColumn
+                      refId="Package\ExtractItemDataExcel\Excel Source.Outputs[Excel Source Output].ExternalColumns[ReorderLevel]"
+                      dataType="r8"
+                      name="ReorderLevel" />
+                    <externalMetadataColumn
+                      refId="Package\ExtractItemDataExcel\Excel Source.Outputs[Excel Source Output].ExternalColumns[LastUpdated]"
+                      dataType="wstr"
+                      length="255"
+                      name="LastUpdated" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\ExtractItemDataExcel\Excel Source.Outputs[Excel Source Error Output]"
+                  isErrorOut="true"
+                  name="Excel Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\ExtractItemDataExcel\Excel Source.Outputs[Excel Source Error Output].Columns[ItemID]"
+                      dataType="r8"
+                      lineageId="Package\ExtractItemDataExcel\Excel Source.Outputs[Excel Source Error Output].Columns[ItemID]"
+                      name="ItemID" />
+                    <outputColumn
+                      refId="Package\ExtractItemDataExcel\Excel Source.Outputs[Excel Source Error Output].Columns[ItemName]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\ExtractItemDataExcel\Excel Source.Outputs[Excel Source Error Output].Columns[ItemName]"
+                      name="ItemName" />
+                    <outputColumn
+                      refId="Package\ExtractItemDataExcel\Excel Source.Outputs[Excel Source Error Output].Columns[QuantityInStock]"
+                      dataType="r8"
+                      lineageId="Package\ExtractItemDataExcel\Excel Source.Outputs[Excel Source Error Output].Columns[QuantityInStock]"
+                      name="QuantityInStock" />
+                    <outputColumn
+                      refId="Package\ExtractItemDataExcel\Excel Source.Outputs[Excel Source Error Output].Columns[ReorderLevel]"
+                      dataType="r8"
+                      lineageId="Package\ExtractItemDataExcel\Excel Source.Outputs[Excel Source Error Output].Columns[ReorderLevel]"
+                      name="ReorderLevel" />
+                    <outputColumn
+                      refId="Package\ExtractItemDataExcel\Excel Source.Outputs[Excel Source Error Output].Columns[LastUpdated]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\ExtractItemDataExcel\Excel Source.Outputs[Excel Source Error Output].Columns[LastUpdated]"
+                      name="LastUpdated" />
+                    <outputColumn
+                      refId="Package\ExtractItemDataExcel\Excel Source.Outputs[Excel Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\ExtractItemDataExcel\Excel Source.Outputs[Excel Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\ExtractItemDataExcel\Excel Source.Outputs[Excel Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\ExtractItemDataExcel\Excel Source.Outputs[Excel Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\ExtractItemDataExcel\OLE DB Destination"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="OLE DB Destination"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[DimItem]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\ExtractItemDataExcel\OLE DB Destination.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[DESKTOP-3TN8L9T.HealthcareDW]"
+                  connectionManagerRefId="Package.ConnectionManagers[DESKTOP-3TN8L9T.HealthcareDW]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\ExtractItemDataExcel\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\ExtractItemDataExcel\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[ItemID]"
+                      cachedDataType="r8"
+                      cachedName="ItemID"
+                      externalMetadataColumnId="Package\ExtractItemDataExcel\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ItemID]"
+                      lineageId="Package\ExtractItemDataExcel\Excel Source.Outputs[Excel Source Output].Columns[ItemID]" />
+                    <inputColumn
+                      refId="Package\ExtractItemDataExcel\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[QuantityInStock]"
+                      cachedDataType="r8"
+                      cachedName="QuantityInStock"
+                      externalMetadataColumnId="Package\ExtractItemDataExcel\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[QuantityInStock]"
+                      lineageId="Package\ExtractItemDataExcel\Excel Source.Outputs[Excel Source Output].Columns[QuantityInStock]" />
+                    <inputColumn
+                      refId="Package\ExtractItemDataExcel\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[ReorderLevel]"
+                      cachedDataType="r8"
+                      cachedName="ReorderLevel"
+                      externalMetadataColumnId="Package\ExtractItemDataExcel\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ReorderLevel]"
+                      lineageId="Package\ExtractItemDataExcel\Excel Source.Outputs[Excel Source Output].Columns[ReorderLevel]" />
+                    <inputColumn
+                      refId="Package\ExtractItemDataExcel\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[LastUpdated]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="LastUpdated"
+                      externalMetadataColumnId="Package\ExtractItemDataExcel\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[LastUpdated]"
+                      lineageId="Package\ExtractItemDataExcel\Excel Source.Outputs[Excel Source Output].Columns[LastUpdated]" />
+                    <inputColumn
+                      refId="Package\ExtractItemDataExcel\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Copy of ItemName]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="Copy of ItemName"
+                      externalMetadataColumnId="Package\ExtractItemDataExcel\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ItemName]"
+                      lineageId="Package\ExtractItemDataExcel\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of ItemName]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\ExtractItemDataExcel\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ItemID]"
+                      dataType="i4"
+                      name="ItemID" />
+                    <externalMetadataColumn
+                      refId="Package\ExtractItemDataExcel\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ItemName]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="ItemName" />
+                    <externalMetadataColumn
+                      refId="Package\ExtractItemDataExcel\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[QuantityInStock]"
+                      dataType="i4"
+                      name="QuantityInStock" />
+                    <externalMetadataColumn
+                      refId="Package\ExtractItemDataExcel\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ReorderLevel]"
+                      dataType="i4"
+                      name="ReorderLevel" />
+                    <externalMetadataColumn
+                      refId="Package\ExtractItemDataExcel\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[LastUpdated]"
+                      dataType="dbDate"
+                      name="LastUpdated" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\ExtractItemDataExcel\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\ExtractItemDataExcel\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\ExtractItemDataExcel\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\ExtractItemDataExcel\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\ExtractItemDataExcel\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\ExtractItemDataExcel\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\ExtractItemDataExcel.Paths[Data Conversion Output]"
+              endId="Package\ExtractItemDataExcel\OLE DB Destination.Inputs[OLE DB Destination Input]"
+              name="Data Conversion Output"
+              startId="Package\ExtractItemDataExcel\Data Conversion.Outputs[Data Conversion Output]" />
+            <path
+              refId="Package\ExtractItemDataExcel.Paths[Excel Source Output]"
+              endId="Package\ExtractItemDataExcel\Data Conversion.Inputs[Data Conversion Input]"
+              name="Excel Source Output"
+              startId="Package\ExtractItemDataExcel\Excel Source.Outputs[Excel Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="179.2,41.6"
+          Id="Package\ExtractItemDataExcel"
+          TopLeft="325.00000069184,175.117646905326" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\ExtractItemDataExcel">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="138.4,43.2"
+          Id="Package\ExtractItemDataExcel\Excel Source"
+          TopLeft="364.999994561076,124.999998137355" />
+        <NodeLayout
+          Size="170.4,41.6"
+          Id="Package\ExtractItemDataExcel\OLE DB Destination"
+          TopLeft="694.999989643693,305.999995440245" />
+        <NodeLayout
+          Size="155.2,41.6"
+          Id="Package\ExtractItemDataExcel\Data Conversion"
+          TopLeft="406.999993935227,250.999996259809" />
+        <EdgeLayout
+          Id="Package\ExtractItemDataExcel.Paths[Excel Source Output]"
+          TopLeft="434.199994561076,168.199998137355">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="50.3999993741508,82.7999981224537"
+              Start="0,0"
+              End="50.3999993741508,75.2999981224537">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,37.3999990612269" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,37.3999990612269"
+                    Point2="0,41.3999990612269"
+                    Point3="4,41.3999990612269" />
+                  <mssgle:LineSegment
+                    End="46.3999993741508,41.3999990612269" />
+                  <mssgle:CubicBezierSegment
+                    Point1="46.3999993741508,41.3999990612269"
+                    Point2="50.3999993741508,41.3999990612269"
+                    Point3="50.3999993741508,45.3999990612269" />
+                  <mssgle:LineSegment
+                    End="50.3999993741508,75.2999981224537" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\ExtractItemDataExcel.Paths[Data Conversion Output]"
+          TopLeft="562.199993935227,271.799996259809">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="132.799995708466,54.9999991804361"
+              Start="0,0"
+              End="125.299995708466,54.9999991804361">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="62.3999978542329,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="62.3999978542329,0"
+                    Point2="66.3999978542329,0"
+                    Point3="66.3999978542329,4" />
+                  <mssgle:LineSegment
+                    End="66.3999978542329,50.9999991804361" />
+                  <mssgle:CubicBezierSegment
+                    Point1="66.3999978542329,50.9999991804361"
+                    Point2="66.3999978542329,54.9999991804361"
+                    Point3="70.3999978542329,54.9999991804361" />
+                  <mssgle:LineSegment
+                    End="125.299995708466,54.9999991804361" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\ExtractItemDataExcel\Excel Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\ExtractItemDataExcel\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
